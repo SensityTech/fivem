@@ -1748,6 +1748,27 @@ static void Init()
 
 		context.SetResult(player);
 	});
+
+	fx::ScriptEngine::RegisterNativeHandler("GET_PED_STEALTH_MOVEMENT", makeEntityFunction([](fx::ScriptContext& context, const fx::sync::SyncEntityPtr& entity)
+	{
+		auto movementGroup = entity->syncTree->GetPedMovementGroup();
+
+		return movementGroup ? movementGroup->isStealthy : false;
+	}));
+
+	fx::ScriptEngine::RegisterNativeHandler("IS_PED_STRAFING", makeEntityFunction([](fx::ScriptContext& context, const fx::sync::SyncEntityPtr& entity)
+	{
+		auto movementGroup = entity->syncTree->GetPedMovementGroup();
+
+		return movementGroup ? movementGroup->isStrafing : false;
+	}));
+
+	fx::ScriptEngine::RegisterNativeHandler("IS_PED_RAGDOLL", makeEntityFunction([](fx::ScriptContext& context, const fx::sync::SyncEntityPtr& entity)
+	{
+		auto movementGroup = entity->syncTree->GetPedMovementGroup();
+
+		return movementGroup ? movementGroup->isRagdolling : false;
+	}));
 }
 
 static InitFunction initFunction([]()
